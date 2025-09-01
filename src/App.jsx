@@ -38,9 +38,16 @@ function App() {
   };
   
   const resetAnswers = () => {
-    if (confirm('هل أنت متأكد من إعادة تعيين جميع الإجابات؟')) {
+    if (confirm('هل أنت متأكد من إعادة تعيين جميع الإجابات والعلامات؟')) {
       setAnswers({});
       localStorage.removeItem(`answers-${currentDate}`);
+      // Clear any highlighting or marking states
+      const questionCards = document.querySelectorAll('.question-card');
+      questionCards.forEach(card => {
+        card.classList.remove('highlighted', 'marked', 'completed');
+      });
+      // Reset any visual indicators
+      window.location.reload();
     }
   };
   
@@ -55,13 +62,20 @@ function App() {
         <Card className="mb-8 bg-gradient-to-r from-blue-600 to-green-600 text-white border-0">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="text-3xl font-bold mb-2">
-                  نظام المحاسبة اليومية
-                </CardTitle>
-                <p className="text-blue-100 text-lg">
-                  تتبع مسيرتك الروحية والأخلاقية يومياً
-                </p>
+              <div className="flex items-center gap-4">
+                <img 
+                  src="/logo.jpg" 
+                  alt="Logo" 
+                  className="w-16 h-16 rounded-full object-cover border-2 border-white/30"
+                />
+                <div>
+                  <CardTitle className="text-3xl font-bold mb-2">
+                    نظام المحاسبة اليومية
+                  </CardTitle>
+                  <p className="text-blue-100 text-lg">
+                    تتبع مسيرتك الروحية والأخلاقية يومياً
+                  </p>
+                </div>
               </div>
               <div className="text-left">
                 <div className="flex items-center gap-2 mb-2">
